@@ -7,7 +7,7 @@ A gprof browser
 * Compile your program with '-pg' as a compiler and linker option,
 * Run:
  $ ./my_prog
-(thsi produces gmon.out)
+(this produces gmon.out)
 * Create gprof analysis:
  $ gprof myprog > my_prog.grpof
 

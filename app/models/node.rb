@@ -35,11 +35,7 @@ class Node < ActiveRecord::Base
   end
 
   def info
-    "#{ @label } (#{ @weight }%)"
-  end
-
-  def link_to
-    "<a href='/#{ @nid }'>#{ info }</a>"
+    "#{ label } (#{ weight }%)"
   end
 
 end

@@ -1,5 +1,5 @@
 %p
-  = @node.parent ? @node.parent.link_to : ''
+  = @node.parent ? link_to( @node.parent.info, @node.parent ) : ''
 |
 %br
 v
@@ -11,8 +11,6 @@ v
 v
 %br
 - @node.children.each do |child|
-  = child.link_to
-  &nbsp;
+  = link_to( child.info, child )
+  != '&nbsp;'
 %br
-%p
-  = @node.inspect

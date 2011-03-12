@@ -1,5 +1,4 @@
 class Node
-  include NodeHelpers
 
   attr_accessor :nid
   attr_accessor :pid
@@ -20,6 +19,10 @@ class Node
 
   def info
     "#{ @label } (#{ @weight }%)"
+  end
+
+  def link_to
+    "<a href='/#{ @nid }'>#{ info }</a>"
   end
 
   private

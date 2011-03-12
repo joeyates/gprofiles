@@ -1,0 +1,16 @@
+%p
+  = @node.parent ? @node.parent.link_to : ''
+|
+%br
+v
+%br
+%h3
+  &= @node.info
+|
+%br
+v
+%br
+- @node.children.each do |child|
+  = child.link_to
+  &nbsp;
+%br

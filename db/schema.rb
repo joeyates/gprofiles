@@ -10,17 +10,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110312111918) do
+ActiveRecord::Schema.define(:version => 20110312182230) do
 
   create_table "nodes", :force => true do |t|
-    t.integer "nid",       :null => false
+    t.integer "nid",        :null => false
     t.integer "pid"
     t.text    "label"
     t.float   "weight"
     t.integer "parent_id"
+    t.integer "profile_id"
   end
 
   add_index "nodes", ["nid"], :name => "index_nodes_on_nid"
   add_index "nodes", ["parent_id"], :name => "index_nodes_on_parent_id"
+
+  create_table "profiles", :force => true do |t|
+    t.string   "path_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

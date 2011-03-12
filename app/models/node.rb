@@ -2,7 +2,12 @@ class Node < ActiveRecord::Base
   belongs_to :parent, :class_name => 'Node'
   has_many   :children, :class_name => 'Node', :foreign_key => :parent_id
 
-  def Node.parse( chunk )
+  validates_presence_of :profile_id
+  validates_presence_of :label
+  validates_presence_of :weight
+  validates_uniqueness_of :nid, :scope => :profile_id
+
+  def Node.parse( profile, chunk )
     #          1         2                3           4            5 = rest
     #          id        time             self        children     called   name
     rgx = /^\[(\d+)\]\s+(\d+\.\d+)\s{4}(\d+\.\d+)\s{4}(\d+\.\d+)\s+(.*)$/
@@ -22,13 +27,11 @@ class Node < ActiveRecord::Base
     m        = start.match( /\[(\d+)\]$/ )
     pid      = m[ 1 ].to_i unless m.nil?
 
-    node = Node.new( :nid    => nid,
-                     :pid    => pid,
-                     :weight => weight,
-                     :label  => label )
-    node.save
-
-    node
+    Node.create!( :nid        => nid,
+                  :pid        => pid,
+                  :weight     => weight,
+                  :label      => label,
+                  :profile_id => profile.id)
   end
 
   def info

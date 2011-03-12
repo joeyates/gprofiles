@@ -35,10 +35,9 @@ class Profile < ActiveRecord::Base
   def set_parent
     self.nodes.each do | node |
       if node.pid
-        parent = Node.find_by_pid( node.pid )
-        node.update_attribute( :parent, parent )
+        parent = Node.find_by_nid( node.pid )
         if parent
-          parent.children << node
+          node.update_attribute( :parent, parent )
         else
           $stderr.puts "Parent missing: #{ node.pid }"
         end

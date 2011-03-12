@@ -8,6 +8,8 @@ require 'models/profile'
 
 class GProfilesApp < Sinatra::Base
 
+  set :public, File.dirname( __FILE__ ) + '/static'
+
   $prof = Profile.new( 'active_record.gprof' )
 
   get '/' do

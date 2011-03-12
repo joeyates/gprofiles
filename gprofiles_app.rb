@@ -1,15 +1,18 @@
+GProfilesRoot = File.dirname( __FILE__ )
+$:.unshift( GProfilesRoot )
 require 'rubygems' if RUBY_VERSION < '1.9'
-$:.unshift( File.dirname( __FILE__ ) )
 
 require 'sinatra/base'
 require 'haml'
-require 'helpers/node_helpers'
+require 'dm-core'
+require 'data_mapper'
 require 'models/node'
 require 'models/profile'
 
-class GProfilesApp < Sinatra::Base
-  include NodeHelpers
+DataMapper.setup( :default, "sqlite3://#{ GProfilesRoot }/gprofiles.sqlite3" )
+DataMapper.finalize
 
+class GProfilesApp < Sinatra::Base
   set :public, File.dirname( __FILE__ ) + '/static'
 
   $prof = Profile.new( 'active_record.gprof' )

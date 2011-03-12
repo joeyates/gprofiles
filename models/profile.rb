@@ -18,7 +18,7 @@ class Profile
   def parse_raw( raw )
     @nodes = []
     each_chunk( raw ) do | chunk |
-      node              = Node.new( chunk )
+      node              = Node.parse( chunk )
       @nodes[ node.nid ] = node
     end
   end

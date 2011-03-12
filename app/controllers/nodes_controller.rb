@@ -6,7 +6,7 @@ class NodesController < ApplicationController
   end
 
   def show
-    nid = params[ :nid ].to_i
+    nid = params[ :id ].to_i
     @node = Node.find( nid )
   end
 

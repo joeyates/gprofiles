@@ -8,32 +8,56 @@ describe Node do
     @profile = profiles( :basic )
   end
 
-  it "should parse chunks" do
-    node = Node.parse( @profile, chunk )
+  context :parsing do
 
-    node.nid.          should    == 4
-    node.pids.         should    == [ 138, 3 ]
-    node.weight.       should    == 24.8
-    node.label.        should    == 'ActiveRecord::Connection::select_all(std::string const&, std::list<ActiveRecord::Attribute, std::allocator<ActiveRecord::Attribute> > const&)'
+    it "should parse chunks" do
+      node = Node.parse( @profile, chunk )
+
+      node.nid.          should    == 4
+      node.pids.         should    == [ 138, 3 ]
+      node.weight.       should    == 24.8
+      node.label.        should    == 'ActiveRecord::Connection::select_all(std::string const&, std::list<ActiveRecord::Attribute, std::allocator<ActiveRecord::Attribute> > const&)'
+    end
+
+    it "should raise an error when the root line is not found" do
+      no_root = chunk.gsub( /^\[\d+\] /, 'xxx' )
+
+      expect do
+        Node.parse( @profile, no_root )
+      end.to raise_error( RuntimeError, /root line not found/ )
+    end
+
   end
 
-  it "should raise an error when the root line is not found" do
-    no_root = chunk.gsub( /^\[\d+\] /, 'xxx' )
-
-    expect do
-      Node.parse( @profile, no_root )
-    end.to raise_error( RuntimeError, /root line not found/ )
+  context :attributes do
+    it "should supply info"
   end
 
-  it "should have parents" do
-    node = nodes( :with_parents )
+  context :relationships do
 
-    node.parents.size.     should       == 2
+    it "can have parents" do
+      node = nodes( :with_parents )
+
+      node.parents.size.     should       == 2
+      node.parents[ 0 ].     should       == nodes( :root )
+      node.parents[ 1 ].     should       == nodes( :intermediate_a )
+    end
+
+    it "can have no parents" do
+      node = nodes( :root )
+
+      node.parents.size.     should       == 0
+    end
+
+    it "should have children" do
+      node = nodes( :root )
+
+      node.children.size.     should       == 2
+      node.children[ 0 ].     should       == nodes( :intermediate_a )
+      node.children[ 1 ].     should       == nodes( :with_parents )
+    end
+
   end
-
-  it "should have children"
-
-  it "should supply info"
 
   def chunk
     <<EOT

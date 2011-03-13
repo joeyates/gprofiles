@@ -2,6 +2,6 @@ basic:
   id: 1
   path_name: /path/to/gprof/file
 
-parents_and_children:
+relationships:
   id: 2
   path_name: /path/to/gprof/file

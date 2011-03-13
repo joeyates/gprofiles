@@ -3,6 +3,10 @@ class Node < ActiveRecord::Base
                                     :class_name              => 'Node',
                                     :foreign_key             => :child_id,
                                     :association_foreign_key => :parent_id
+  has_and_belongs_to_many :children, :join_table              => :relationships,
+                                     :class_name              => 'Node',
+                                     :foreign_key             => :parent_id,
+                                     :association_foreign_key => :child_id
 
   serialize :pids
 

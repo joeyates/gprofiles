@@ -8,16 +8,21 @@ describe Node do
     @profile = profiles( :basic )
   end
 
-  it "should have a parent" do
-    pending
+  it "should parse chunks" do
+    node = Node.parse( @profile, chunk )
+
+    node.nid.          should    == 4
+    node.pids.         should    == [ 138, 3 ]
+    node.weight.       should    == 24.8
+    node.label.        should    == 'ActiveRecord::Connection::select_all(std::string const&, std::list<ActiveRecord::Attribute, std::allocator<ActiveRecord::Attribute> > const&)'
   end
 
-  it "should have children" do
-    pending
-  end
+  it "should raise an error when the root line is not found" do
+    no_root = chunk.gsub( /^\[\d+\] /, 'xxx' )
 
-  it "should allow parent to be missing" do
-    pending
+    expect do
+      Node.parse( @profile, no_root )
+    end.to raise_error( RuntimeError, /root line not found/ )
   end
 
   it "should have parents" do
@@ -26,8 +31,21 @@ describe Node do
     node.parents.size.     should       == 2
   end
 
-  it "should supply info" do
-    pending
+  it "should have children"
+
+  it "should supply info"
+
+  def chunk
+    <<EOT
+                0.00    0.00       1/100001      ActiveRecord::Connection::table_exists(std::string const&) [138]
+                0.02    0.12  100000/100001      ActiveRecord::Query<Greeting>::all() [3]
+[4]     24.8    0.02    0.12  100001         ActiveRecord::Connection::select_all(std::string const&, std::list<ActiveRecord::Attribute, std::allocator<ActiveRecord::Attribute> > const&) [4]
+                0.01    0.05  200000/200000      ActiveRecord::Row::Row(sqlite3_stmt*) [13]
+                0.00    0.02  200000/200000      std::list<ActiveRecord::Row, std::allocator<ActiveRecord::Row> >::push_back(ActiveRecord::Row const&) [47]
+                0.00    0.01  200000/400000      ActiveRecord::Row::~Row() [45]
+                0.00    0.01  100001/100001      std::list<ActiveRecord::Row, std::allocator<ActiveRecord::Row> >::list() [105]
+                0.00    0.00  100001/100004      ActiveRecord::Connection::prepare(std::string const&, std::list<ActiveRecord::Attribute, std::allocator<ActiveRecord::Attribute> > const&) [167]
+EOT
   end
 
 end

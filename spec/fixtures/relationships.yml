@@ -1,0 +1,11 @@
+rel1_2:
+  parent_id: 1
+  child_id: 2
+
+rel1_3:
+  parent_id: 1
+  child_id: 3
+
+rel2_3:
+  parent_id: 2
+  child_id: 3

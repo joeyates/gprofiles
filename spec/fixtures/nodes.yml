@@ -1,0 +1,23 @@
+root:
+  id: 1
+  profile_id: 2
+  nid: 1
+  pids: []
+  weight: 95%
+  label: 'root'
+
+intermediate_a:
+  id: 2
+  profile_id: 2
+  nid: 2
+  pids: [1]
+  weight: 90%
+  label: 'int a'
+
+with_parents:
+  id: 3
+  profile_id: 2
+  nid: 3
+  pids: [2, 3]
+  weight: 9%
+  label: 'int b'

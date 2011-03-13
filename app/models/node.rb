@@ -1,6 +1,10 @@
 class Node < ActiveRecord::Base
-  belongs_to :parent, :class_name => 'Node'
-  has_many   :children, :class_name => 'Node', :foreign_key => :parent_id
+  has_and_belongs_to_many :parents, :join_table              => :relationships,
+                                    :class_name              => 'Node',
+                                    :foreign_key             => :child_id,
+                                    :association_foreign_key => :parent_id
+
+  serialize :pids
 
   validates_presence_of :profile_id
   validates_presence_of :label
@@ -24,11 +28,14 @@ class Node < ActiveRecord::Base
     raise "unexpected rest format: #{ rest }" if m.nil?
     label    = m[ 1 ]
 
-    m        = start.match( /\[(\d+)\]$/ )
-    pid      = m[ 1 ].to_i unless m.nil?
+    pids = []
+    while m = start.match( /\[(\d+)\]$/ )
+      pids << m[ 1 ].to_i
+      start = m.post_match
+    end
 
     Node.create!( :nid        => nid,
-                  :pid        => pid,
+                  :pids       => pids,
                   :weight     => weight,
                   :label      => label,
                   :profile_id => profile.id)

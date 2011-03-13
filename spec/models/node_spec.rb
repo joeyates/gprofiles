@@ -2,12 +2,10 @@ require File.dirname( __FILE__ ) + '/../spec_helper'
 
 describe Node do
 
-  it "should parse chunks" do
-    pending
-  end
+  fixtures :all
 
-  it "should raise an error when the root line is not found" do
-    pending
+  before :each do
+    @profile = profiles( :basic )
   end
 
   it "should have a parent" do
@@ -22,8 +20,10 @@ describe Node do
     pending
   end
 
-  it "should" do
-    pending
+  it "should have parents" do
+    node = nodes( :with_parents )
+
+    node.parents.size.     should       == 2
   end
 
   it "should supply info" do

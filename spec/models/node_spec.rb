@@ -30,7 +30,11 @@ describe Node do
   end
 
   context :attributes do
-    it "should supply info"
+    it "should supply info" do
+      node = nodes( :root )
+
+      node.info.     should      == 'root (95.0%)'
+    end
   end
 
   context :relationships do

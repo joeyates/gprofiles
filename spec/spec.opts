@@ -1,5 +1,3 @@
--cfs
---loadby mtime
---reverse
---format
+--colour
+--format doc
 failing_examples:spec/previous_failures.txt

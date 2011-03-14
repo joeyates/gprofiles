@@ -1,3 +1,5 @@
+require 'cpp_method'
+
 class Node < ActiveRecord::Base
   has_and_belongs_to_many :parents, :join_table              => :relationships,
                                     :class_name              => 'Node',
@@ -50,7 +52,11 @@ class Node < ActiveRecord::Base
   end
 
   def info
-    "#{ label } (#{ weight }%)"
+    ( ! method.class_name.blank? ? "#{ method.class_name }::" : '' ) + "#{ method.method }() (#{ weight }%)"
+  end
+
+  def method
+    @method ||= CppMethod.new( label )
   end
 
 end

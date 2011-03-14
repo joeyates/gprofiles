@@ -1,19 +1,21 @@
 %p
 - @node.parents.each do |parent|
-  = link_to( parent.info, parent )
+  %a{ :title => parent.label, :href => url_for( parent ) }
+    = parent.info
   != '&nbsp;'
 %br
 |
 %br
 v
 %br
-%h3
+%h3{ :title => @node.label }
   = @node.info
 |
 %br
 v
 %br
 - @node.children.each do |child|
-  = link_to( child.info, child )
+  %a{ :title => child.label, :href => url_for( child ) }
+    = child.info
   != '&nbsp;'
 %br

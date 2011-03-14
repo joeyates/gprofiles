@@ -1,5 +1,8 @@
 %p
-  = @node.parent ? link_to( @node.parent.info, @node.parent ) : ''
+- @node.parents.each do |parent|
+  = link_to( parent.info, parent )
+  != '&nbsp;'
+%br
 |
 %br
 v

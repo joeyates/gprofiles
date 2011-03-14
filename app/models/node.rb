@@ -8,6 +8,8 @@ class Node < ActiveRecord::Base
                                      :foreign_key             => :parent_id,
                                      :association_foreign_key => :child_id
 
+  belongs_to :profile
+
   serialize :pids
 
   validates_presence_of :nid

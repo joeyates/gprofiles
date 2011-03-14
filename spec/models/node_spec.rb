@@ -42,6 +42,12 @@ describe Node do
       end.to raise_error( ActiveRecord::RecordInvalid, /Profile can't be blank/ )
     end
 
+    it "belongs to a profile" do
+      node = nodes( :root )
+
+      node.profile.         should   == profiles( :relationships )
+    end
+
     it "must have a label" do
       expect do
         Node.create!

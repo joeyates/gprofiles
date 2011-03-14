@@ -34,6 +34,7 @@ class Node < ActiveRecord::Base
     m        = rest.match( /^(.*?)\s+\[\d+\]$/ )
     raise "unexpected rest format: #{ rest }" if m.nil?
     label    = m[ 1 ]
+    label    = 'main()' if label == 'main'
 
     pids = []
     while m = start.match( /\[(\d+)\]$/ )

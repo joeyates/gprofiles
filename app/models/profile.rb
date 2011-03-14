@@ -36,7 +36,7 @@ class Profile < ActiveRecord::Base
   def set_parent
     self.nodes.each do | node |
       node.pids.each do | pid |
-        parent = Node.find_by_nid( pid )
+        parent = self.nodes.find_by_nid( pid )
         if parent
           node.parents << parent
         end

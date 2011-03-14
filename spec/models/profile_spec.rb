@@ -52,26 +52,34 @@ describe Profile do
 
   end
 
-  it "should parse gprof output" do
-    lambda do
-      Profile.import( @tf.path )
-    end.                        should_not  raise_error
-  end
+  context :import do
 
-  it "should return new Profile from Profile.import" do
-    profile = Profile.import( @tf.path )
+    it "should parse gprof output" do
+      lambda do
+        Profile.import( @tf.path )
+      end.                        should_not  raise_error
+    end
 
-    profile.is_a?( Profile ).   should   be_true
-  end
+    it "should return new Profile" do
+      profile = Profile.import( @tf.path )
 
-  it "should have nodes" do
-    profile = Profile.import( @tf.path )
+      profile.is_a?( Profile ).   should   be_true
+    end
 
-    profile.nodes.size.         should   == 4
+    it "should set up relationships" do
+      profile = Profile.import( @tf.path )
 
-    node = profile.nodes.first
+      node_1 = profile.nodes.find_by_nid( 1 )
+      node_2 = profile.nodes.find_by_nid( 2 )
+      node_3 = profile.nodes.find_by_nid( 3 )
 
-    node.is_a?( Node ).         should   be_true
+      node_2.parents.size.            should    == 1
+      node_2.parents.first.profile.   should    == profile
+      node_2.parents.first.           should    == node_1
+      node_2.children.size.           should    == 1
+      node_2.children.first.          should    == node_3
+    end
+
   end
 
   def gprof_file

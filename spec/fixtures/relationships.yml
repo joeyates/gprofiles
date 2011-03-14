@@ -1,11 +1,17 @@
+# basic
+rel:
+  parent_id: 101
+  child_id: 102
+
+# relationships
 rel1_2:
-  parent_id: 1
-  child_id: 2
+  parent_id: 201
+  child_id: 202
 
 rel1_3:
-  parent_id: 1
-  child_id: 3
+  parent_id: 201
+  child_id: 203
 
 rel2_3:
-  parent_id: 2
-  child_id: 3
+  parent_id: 202
+  child_id: 203

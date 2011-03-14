@@ -27,6 +27,16 @@ describe Profile do
     profile.is_a?( Profile ).   should   be_true
   end
 
+  it "should have nodes" do
+    profile = Profile.import( @tf.path )
+
+    profile.nodes.size.         should   == 4
+
+    node = profile.nodes.first
+
+    node.is_a?( Node ).         should   be_true
+  end
+
   def gprof_file
     <<EOT
 granularity: each sample hit covers 2 byte(s) for 1.82% of 0.55 seconds

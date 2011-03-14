@@ -38,12 +38,9 @@ class Profile < ActiveRecord::Base
       node.pids.each do | pid |
         parent = Node.find_by_nid( pid )
         if parent
-          node.update_attribute( :parent, parent )
-        else
-          $stderr.puts "Node #{ node.id } missing parent #{ pid }"
+          node.parents << parent
         end
       end
-      $stderr.puts "No parent: #{ node.id }" if node.pids.size == 0
     end
   end
 

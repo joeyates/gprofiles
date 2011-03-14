@@ -30,6 +30,15 @@ describe CppMethod do
                    'table_exists', [ 'std::string const&' ] )
   end
 
+  it "should parse const methods" do
+    s = 'std::vector<Greeting, std::allocator<Greeting> >::size() const'
+    m = CppMethod.new( s )
+
+    method_should( m,
+                   'std', 'vector', [ 'Greeting, std::allocator<Greeting>' ],
+                   'size', [] )
+  end
+
   it "should parse functions" do
     s = 'ar_setup()'
     m = CppMethod.new( s )

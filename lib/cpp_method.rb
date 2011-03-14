@@ -18,8 +18,16 @@ class CppMethod
     @parameters          = []
     @template_parameters = []
 
-    params = @raw.match( /\(([^\)]*)\)$/ )
-    raise "Params not found" if params.nil?
+    rest = @raw.clone
+
+    # drop const
+    const = rest.match( /\s+const$/ )
+    if const
+      rest = const.pre_match
+    end
+
+    params = rest.match( /\(([^\)]*)\)$/ )
+    raise "Params not found in '#{ @raw }'" if params.nil?
     unless params[ 1 ].empty?
       @parameters << params[ 1 ]
     end

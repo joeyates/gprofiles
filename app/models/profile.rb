@@ -10,6 +10,7 @@ class Profile < ActiveRecord::Base
     raw = File.read( path_name )
     parse_raw( raw )
     set_parent
+    self
   end
 
   private

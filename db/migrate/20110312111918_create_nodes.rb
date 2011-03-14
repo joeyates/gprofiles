@@ -3,7 +3,6 @@ class CreateNodes < ActiveRecord::Migration
   def self.up
     create_table :nodes do |t|
       t.integer :nid,       :null => false
-      t.string  :pids
       t.text    :label
       t.float   :weight
     end

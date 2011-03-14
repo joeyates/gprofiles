@@ -8,17 +8,19 @@ class Profile < ActiveRecord::Base
 
   def parse!
     raw = File.read( path_name )
-    parse_raw( raw )
-    set_parent
+    nodes = parse_raw( raw )
+    set_parent( nodes )
     self
   end
 
   private
 
   def parse_raw( raw )
+    nodes = []
     each_chunk( raw ) do | chunk |
-      Node.parse( self, chunk )
+      nodes << Node.parse( self, chunk )
     end
+    nodes
   end
 
   def each_chunk( raw )
@@ -33,8 +35,8 @@ class Profile < ActiveRecord::Base
     end
   end
 
-  def set_parent
-    self.nodes.each do | node |
+  def set_parent( nodes )
+    nodes.each do | node |
       node.pids.each do | pid |
         parent = self.nodes.find_by_nid( pid )
         if parent

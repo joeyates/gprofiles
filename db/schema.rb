@@ -14,7 +14,6 @@ ActiveRecord::Schema.define(:version => 20110313230710) do
 
   create_table "nodes", :force => true do |t|
     t.integer "nid",        :null => false
-    t.string  "pids"
     t.text    "label"
     t.float   "weight"
     t.integer "profile_id"

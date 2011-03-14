@@ -10,7 +10,7 @@ class Node < ActiveRecord::Base
 
   belongs_to :profile
 
-  serialize :pids
+  attr_accessor :pids
 
   validates_presence_of :nid
   validates_presence_of :profile_id

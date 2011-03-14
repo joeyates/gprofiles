@@ -14,7 +14,6 @@ describe Node do
       node = Node.parse( @profile, chunk )
 
       node.nid.          should    == 4
-      node.pids.         should    == [ 138, 3 ]
       node.weight.       should    == 24.8
       node.label.        should    == 'ActiveRecord::Connection::select_all(std::string const&, std::list<ActiveRecord::Attribute, std::allocator<ActiveRecord::Attribute> > const&)'
     end

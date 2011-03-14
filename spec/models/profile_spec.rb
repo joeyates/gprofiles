@@ -15,22 +15,41 @@ describe Profile do
     @tf.close( true )
   end
 
-  it "should scope to its own nodes" do
-    profile_1 = Profile.create!
-    profile_2 = Profile.create!
-    node_1_1  = Node.create!( :nid     => 1,
-                              :profile => profile_1,
-                              :label   => 'a',
-                              :weight  => 12.0 )
-    node_2_1  = Node.create!( :nid     => 1,
-                              :profile => profile_2,
-                              :label   => 'a',
-                              :weight  => 12.0 )
-    nodes     = profile_1.nodes.find_all_by_nid( 1 )
+  context :nodes do
 
-    nodes.size.                 should   == 1
-    nodes.first.                should   == node_1_1
-    nodes.first.profile.        should   == profile_1
+    it "should have nodes" do
+      profile = Profile.create!
+      node_1  = Node.create!( :nid     => 1,
+                              :profile => profile,
+                              :label   => 'a',
+                              :weight  => 12.0 )
+      node_2  = Node.create!( :nid     => 2,
+                              :profile => profile,
+                              :label   => 'a',
+                              :weight  => 12.0 )
+
+      profile.nodes.size.         should   == 2
+      profile.nodes.first.        should   == node_1
+    end
+
+    it "should scope to its own nodes" do
+      profile_1 = Profile.create!
+      profile_2 = Profile.create!
+      node_1_1  = Node.create!( :nid     => 1,
+                                :profile => profile_1,
+                                :label   => 'a',
+                                :weight  => 12.0 )
+      node_2_1  = Node.create!( :nid     => 1,
+                                :profile => profile_2,
+                                :label   => 'a',
+                                :weight  => 12.0 )
+      nodes     = profile_1.nodes.find_all_by_nid( 1 )
+
+      nodes.size.                 should   == 1
+      nodes.first.                should   == node_1_1
+      nodes.first.profile.        should   == profile_1
+    end
+
   end
 
   it "should parse gprof output" do

@@ -66,6 +66,17 @@ describe Profile do
       profile.is_a?( Profile ).   should   be_true
     end
 
+    it "should associate Node parents with own nodes" do
+      profile_1 = Profile.import( @tf.path )
+      profile_2 = Profile.import( @tf.path )
+
+      node_1_2 = Node.find_by_profile_id_and_nid( profile_1.id, 2 )
+      node_2_2 = Node.find_by_profile_id_and_nid( profile_2.id, 2 )
+
+      node_1_2.parents.first.profile.    should   == profile_1
+      node_2_2.parents.first.profile.    should   == profile_2
+    end
+
     it "should set up relationships" do
       profile = Profile.import( @tf.path )
 

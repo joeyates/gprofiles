@@ -4,11 +4,11 @@ describe Node do
 
   fixtures :all
 
-  before :each do
-    @profile = profiles( :basic )
-  end
-
   context :parsing do
+
+    before :each do
+      @profile = profiles( :basic )
+    end
 
     it "should parse chunks" do
       node = Node.parse( @profile, chunk )

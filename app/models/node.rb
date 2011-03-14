@@ -10,6 +10,7 @@ class Node < ActiveRecord::Base
 
   serialize :pids
 
+  validates_presence_of :nid
   validates_presence_of :profile_id
   validates_presence_of :label
   validates_presence_of :weight

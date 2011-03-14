@@ -30,6 +30,30 @@ describe Node do
   end
 
   context :attributes do
+    it "must have a nid" do
+      expect do
+        Node.create!
+      end.to raise_error( ActiveRecord::RecordInvalid, /Nid can't be blank/ )
+    end
+
+    it "must have a profile_id" do
+      expect do
+        Node.create!
+      end.to raise_error( ActiveRecord::RecordInvalid, /Profile can't be blank/ )
+    end
+
+    it "must have a label" do
+      expect do
+        Node.create!
+      end.to raise_error( ActiveRecord::RecordInvalid, /Label can't be blank/ )
+    end
+
+    it "must have a weight" do
+      expect do
+        Node.create!
+      end.to raise_error( ActiveRecord::RecordInvalid, /Weight can't be blank/ )
+    end
+
     it "should supply info" do
       node = nodes( :root )
 

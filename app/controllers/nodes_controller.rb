@@ -1,13 +1,8 @@
 class NodesController < ApplicationController
 
-  def index
-    @node = Node.find( 1 )
-    render :action => :show
-  end
-
   def show
-    nid = params[ :id ].to_i
-    @node = Node.find( nid )
+    @profile = Profile.find( params[ :profile_id ] )
+    @node    = @profile.nodes.find( params[ :id ] )
   end
 
 end

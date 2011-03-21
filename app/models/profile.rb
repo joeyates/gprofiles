@@ -13,6 +13,10 @@ class Profile < ActiveRecord::Base
     self
   end
 
+  def root
+    nodes.order( 'id' ).first
+  end
+
   private
 
   def parse_raw( raw )

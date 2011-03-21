@@ -1,6 +1,6 @@
 %p
 - @node.parents.each do |parent|
-  %a{ :title => parent.label, :href => url_for( parent ) }
+  %a{ :title => parent.label, :href => profile_node_path( @profile, parent ) }
     = parent.info
   != '&nbsp;'
 %br
@@ -15,7 +15,7 @@ v
 v
 %br
 - @node.children.each do |child|
-  %a{ :title => child.label, :href => url_for( child ) }
+  %a{ :title => child.label, :href => profile_node_path( @profile, child ) }
     = child.info
   != '&nbsp;'
 %br

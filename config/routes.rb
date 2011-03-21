@@ -1,3 +1,7 @@
 Gprofiles::Application.routes.draw do
-  resources :nodes
+  resources :profiles do | profile |
+    resources :nodes
+  end
+
+  root :to => 'profiles#index'
 end

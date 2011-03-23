@@ -3,6 +3,8 @@ require 'cpp_method'
 
 describe CppMethod do
 
+  # '__gnu_cxx::__normal_iterator<char*, std::string> std::transform<__gnu_cxx::__normal_iterator<char*, std::string>, __gnu_cxx::__normal_iterator<char*, std::string>, int (*)(int)>(__gnu_cxx::__normal_iterator<char*, std::string>, __gnu_cxx::__normal_iterator<char*, std::string>, __gnu_cxx::__normal_iterator<char*, std::string>, int (*)(int))'
+
   it "should parse ctors" do
     s = 'ActiveRecord::Query<Greeting>::Query()'
     m = CppMethod.new( s )
@@ -46,6 +48,15 @@ describe CppMethod do
     method_should( m,
                    '', '',  [],
                    'ar_setup', [] )
+  end
+
+  it "should parse functions with () in the parameter list" do
+    s = 'boost::assign_detail::generic_list<std::pair<std::string, ActiveRecord::Attribute> >& boost::assign_detail::generic_list<std::pair<std::string, ActiveRecord::Attribute> >::operator()<char [6], char [6]>(char const (&) [6], char const (&) [6])'
+    m = CppMethod.new( s )
+
+    method_should( m,
+                   'boost::assign_detail', 'generic_list',  [ 'std::pair<std::string, ActiveRecord::Attribute>' ],
+                   'operator()', [ 'char const (&) [6], char const (&) [6]' ] )
   end
 
   def method_should( m, namespace, class_name, template_parameters, method, parameters )

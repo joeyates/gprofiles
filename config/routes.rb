@@ -1,5 +1,6 @@
 Gprofiles::Application.routes.draw do
-  resources :profiles do | profile |
+
+  resources :profiles do
     resources :nodes
   end
 

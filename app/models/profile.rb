@@ -1,13 +1,11 @@
 class Profile < ActiveRecord::Base
   has_many :nodes
+  has_attached_file :gprof
 
-  def self.import( path_name )
-    profile = Profile.create!( :path_name => path_name )
-    profile.parse!
-  end
+  #validates_attachment_presence
 
   def parse!
-    raw = File.read( path_name )
+    raw = File.read( gprof.path )
     nodes = parse_raw( raw )
     set_parent( nodes )
     self

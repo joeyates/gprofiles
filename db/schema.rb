@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110313230710) do
+ActiveRecord::Schema.define(:version => 20110323234249) do
 
   create_table "nodes", :force => true do |t|
     t.integer "nid",        :null => false
@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(:version => 20110313230710) do
   end
 
   create_table "profiles", :force => true do |t|
-    t.string   "path_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "gprof_file_name"
   end
 
   create_table "relationships", :id => false, :force => true do |t|

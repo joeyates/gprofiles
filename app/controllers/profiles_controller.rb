@@ -14,8 +14,9 @@ class ProfilesController < ApplicationController
   end
 
   def create
+    gprof    = params[ :profile ].delete( :gprof )
     @profile = Profile.create!( params[ :profile ] )
-    @profile.parse!
+    @profile.parse!( gprof )
     redirect_to profile_url( @profile )
   end
 
@@ -24,10 +25,12 @@ class ProfilesController < ApplicationController
   end
 
   def update
+    gprof    = params[ :profile ].delete( :gprof )
     @profile = Profile.find( params[ :id ] )
-    @profile.nodes.delete_all
-    @profile.parse!
     @profile.update_attributes( params[ :profile ] )
+    @profile.nodes.delete_all
+    @profile.parse!( gprof )
+
     redirect_to profile_url( @profile )
   end
 

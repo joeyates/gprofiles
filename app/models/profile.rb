@@ -1,11 +1,8 @@
 class Profile < ActiveRecord::Base
   has_many :nodes
-  has_attached_file :gprof
 
-  #validates_attachment_presence
-
-  def parse!
-    raw = File.read( gprof.path )
+  def parse!( gprof )
+    raw   = gprof.read
     nodes = parse_raw( raw )
     set_parent( nodes )
     self

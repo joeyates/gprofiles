@@ -1,6 +1,6 @@
 %ul
   - @profiles.each do |profile|
     %li
-      = link_to( profile.path_name, profile_node_url( profile, profile.root ) )
+      = link_to( profile.title, profile_node_url( profile, profile.root ) )
   %li
     = link_to( 'add', new_profile_url )

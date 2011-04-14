@@ -4,16 +4,24 @@ A gprof browser
 
 == Gprof File
 
-* Compile your program with '-pg' as a compiler and linker option,
+* Compile and link your program with the '-pg' option,
 * Run:
+
  $ ./my_prog
+
 (this produces gmon.out)
+
 * Create gprof analysis:
- $ gprof myprog > my_prog.grpof
+ $ gprof my_prog > my_prog.grpof
 
 == Usage
 
-  $ ./gprofiles [GPROF FILE]
+- Prepare the database:
+
+ $ rake db:migrate
+
+- Run the application.
+- Upload gprof files
 
 == License
 

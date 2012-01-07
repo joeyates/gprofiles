@@ -26,10 +26,11 @@ class CppMethod
       rest = const.pre_match
     end
 
-    params = rest.match( /\(([^\)]*)\)$/ )
+    # allow '(&)' within the parameter list
+    params = rest.match( /\(((\(&\)|[^\)])*)\)$/ )
     raise "Params not found in '#{ @raw }'" if params.nil?
     unless params[ 1 ].empty?
-      @parameters << params[ 1 ]
+      @parameters = params[ 1 ]
     end
 
     rest = params.pre_match

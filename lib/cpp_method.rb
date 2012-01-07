@@ -30,7 +30,7 @@ class CppMethod
     params = rest.match( /\(((\(&\)|[^\)])*)\)$/ )
     raise "Params not found in '#{ @raw }'" if params.nil?
     unless params[ 1 ].empty?
-      @parameters = params[ 1 ]
+      @parameters << params[ 1 ]
     end
 
     rest = params.pre_match
@@ -47,15 +47,14 @@ class CppMethod
       rest = temp_params[ 1 ]
     end
 
-    klass    = rest.match( /([^\:]+)$/ )
+    klass = rest.match( /([^\:]+)$/ )
     if klass
       @class_name = klass[ 1 ]
       rest = klass.pre_match
     end
 
-    unless rest.empty?
-      @namespace = rest.gsub( /\:\:/, '' )
-    end
+    rest.gsub!( /\:\:$/, '' )
+    @namespace = rest
   end
 
 end

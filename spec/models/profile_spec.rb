@@ -52,23 +52,20 @@ describe Profile do
 
   end
 
-  context :import do
+  context :parse! do
 
-    it "should parse gprof output" do
+    it "should not raise an error" do
+      profile = Profile.create!( :title => 'test' )
       lambda do
-        Profile.import( @tf.path )
+        profile.parse!( File.open( @tf.path ) )
       end.                        should_not  raise_error
     end
 
-    it "should return new Profile" do
-      profile = Profile.import( @tf.path )
-
-      profile.is_a?( Profile ).   should   be_true
-    end
-
     it "should associate Node parents with own nodes" do
-      profile_1 = Profile.import( @tf.path )
-      profile_2 = Profile.import( @tf.path )
+      profile_1 = Profile.create!( :title => 'test' )
+      profile_1.parse!( File.open( @tf.path ) )
+      profile_2 = Profile.create!( :title => 'test' )
+      profile_2.parse!( File.open( @tf.path ) )
 
       node_1_2 = Node.find_by_profile_id_and_nid( profile_1.id, 2 )
       node_2_2 = Node.find_by_profile_id_and_nid( profile_2.id, 2 )
@@ -78,7 +75,8 @@ describe Profile do
     end
 
     it "should set up relationships" do
-      profile = Profile.import( @tf.path )
+      profile = Profile.create!( :title => 'test' )
+      profile.parse!( File.open( @tf.path ) )
 
       node_1 = profile.nodes.find_by_nid( 1 )
       node_2 = profile.nodes.find_by_nid( 2 )
